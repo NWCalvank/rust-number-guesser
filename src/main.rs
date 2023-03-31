@@ -1,5 +1,4 @@
 use rand::prelude::*;
-use rand::{thread_rng, Rng};
 use std::io;
 
 fn main() -> io::Result<()> {
