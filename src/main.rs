@@ -41,9 +41,9 @@ fn main() -> io::Result<()> {
                 println!("Try again!");
             }
 
-            // Sloppy clean-up
+            // Clean up remaining guesses
             let index = guesses.iter().position(|x| &*x == machine_guess).unwrap();
-            guesses.remove(index);
+            guesses.swap_remove(index);
         }
     } else {
         println!("Pick a number between 1 & {} :)", guesses.len());
