@@ -3,6 +3,7 @@ use std::io;
 
 fn main() -> io::Result<()> {
     let mut len = 10;
+    let mut guess_count = 0;
     let mut running = true;
     let mut user_len = String::new();
     let mut user_auto = String::new();
@@ -19,8 +20,8 @@ fn main() -> io::Result<()> {
     }
 
     let mut guesses = vec![0; len];
-    for i in 1..len {
-        guesses[i] = i + 1
+    for i in 0..len {
+        guesses[i] = i + 1;
     }
     let answer = thread_rng().gen_range(1..len + 1);
 
@@ -32,6 +33,7 @@ fn main() -> io::Result<()> {
         while running {
             // Pick a random number
             let machine_guess = guesses.choose(&mut thread_rng()).unwrap();
+            guess_count += 1;
             println!("Guess: {}", machine_guess);
 
             // Check guess
@@ -51,6 +53,7 @@ fn main() -> io::Result<()> {
         while running {
             let mut user_input = String::new();
             io::stdin().read_line(&mut user_input)?;
+            guess_count += 1;
             if user_input.trim() == answer.to_string() {
                 running = false;
             } else {
@@ -60,7 +63,6 @@ fn main() -> io::Result<()> {
     }
 
     println!("Correct!");
-    let guess_count = len - guesses.len();
 
     if guess_count > 1 {
         println!("You took {} guesses.", guess_count)
